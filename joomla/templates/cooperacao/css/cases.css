@@ -1,0 +1,126 @@
+.icon_search {
+    background: url(../images/icon_search.svg) no-repeat;
+    background-size: contain;
+    width: 42px;
+    height: 42px;
+    display: inline-block;
+    vertical-align: middle;
+    margin-right: 5px;
+}
+
+.boxListCases {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    padding: 10px;
+    border: 1px solid #005f2a;
+    border-radius: 10px;
+    height: 100%;
+}
+.boxListCases .box {
+    display: flex;
+    flex-direction: row;
+    gap: 16px;
+}
+.boxListCases img{
+    min-width: 180px;
+    height: 180px;
+    object-fit: cover;
+    border-radius: 10px;
+}
+.boxListCases h3 {
+    font-family: "Intro SemiBold";
+    text-align: left;
+    margin: 0;
+    padding: 0;
+    padding-right: 10px;
+    color: #494949;
+    font-size: 18px;
+    line-height: 20px;
+    margin-bottom: 8px;
+}
+.boxListCases h3 a {
+    color: #494949;
+    text-decoration: none;
+}
+.boxListCases p{
+    font-family: "Inter Regular";
+    text-align: left;
+    margin: 0;
+    padding: 0;
+    color: #494949;
+    font-size: 14px;
+    text-decoration: none;
+}
+.boxListCases .btnaccess{
+    font-family: "Inter Medium";
+    font-size: 12px;
+    text-decoration: none;
+    color: #fff;
+    background: #005f2a;
+    width: 170px;
+    margin-top: 10px;
+    -webkit-border-radius: 30px;
+    -moz-border-radius: 30px;
+    border-radius: 30px;
+    text-transform: uppercase;
+}
+
+
+.boxListCases2 {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    padding: 10px;
+    height: 100%;
+}
+.boxListCases2 .box {
+    display: flex;
+    flex-direction: row;
+    gap: 16px;
+}
+.boxListCases2 img{
+    min-width: 180px;
+    height: 180px;
+    object-fit: cover;
+    border-radius: 10px;
+}
+.boxListCases2 h3 {
+    font-family: "Intro SemiBold";
+    text-align: left;
+    margin: 0;
+    padding: 0;
+    padding-right: 10px;
+    color: #494949;
+    font-size: 18px;
+    line-height: 20px;
+    margin-bottom: 8px;
+}
+.boxListCases2 h5 {
+    font-family: 'Inter Regular';
+    color: #707070;
+    font-size: 11px;
+}
+.boxListCases2 h3 a {
+    color: #494949;
+    text-decoration: none;
+}
+.boxListCases2 p{
+    font-family: 'Inter Regular';
+    color: #494949;
+    font-size: 14px;
+}
+.boxListCases2 .btnaccess{
+    font-family: "Inter Medium";
+    font-size: 12px;
+    text-decoration: none;
+    color: #fff;
+    background: #005f2a;
+    width: 170px;
+    margin-top: 10px;
+    -webkit-border-radius: 30px;
+    -moz-border-radius: 30px;
+    border-radius: 30px;
+    text-transform: uppercase;
+}
+

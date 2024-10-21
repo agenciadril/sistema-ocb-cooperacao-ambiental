@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<extension type="module" version="4.0" client="site" method="upgrade">
+    <name>modulo_news_home</name>
+    <author>Section News Home</author>
+    <version>1.0.0</version>
+    <description>Section News Home</description>
+    <files>
+        <filename module="modulo_news_home">modulo_news_home.php</filename>
+    </files>
+</extension>

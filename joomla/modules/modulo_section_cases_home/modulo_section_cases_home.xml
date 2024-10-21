@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<extension type="module" version="4.0" client="site" method="upgrade">
+    <name>modulo_section_cases_home</name>
+    <author>Section Cases Home</author>
+    <version>1.0.0</version>
+    <description>Seuection Cases Home.</description>
+    <files>
+        <filename module="modulo_section_cases_home">modulo_section_cases_home.php</filename>
+    </files>
+</extension>

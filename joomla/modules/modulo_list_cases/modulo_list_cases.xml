@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<extension type="module" version="4.0" client="site" method="upgrade">
+    <name>modulo_list_cases</name>
+    <author>Section List Cases</author>
+    <version>1.0.0</version>
+    <description>Section List Cases</description>
+    <files>
+        <filename module="modulo_list_cases">modulo_list_cases.php</filename>
+    </files>
+</extension>

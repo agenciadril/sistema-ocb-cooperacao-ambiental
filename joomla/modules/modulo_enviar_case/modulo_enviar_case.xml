@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<extension type="module" version="4.0" client="site" method="upgrade">
+    <name>modulo_enviar_case</name>
+    <author>Section Coop 29</author>
+    <version>1.0.0</version>
+    <description>ection Coop 29.</description>
+    <files>
+        <filename module="modulo_enviar_case">modulo_enviar_case.php</filename>
+    </files>
+</extension>

@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<extension type="module" version="4.0" client="site" method="upgrade">
+    <name>modulo_section_coop_29</name>
+    <author>Section Coop 29</author>
+    <version>1.0.0</version>
+    <description>ection Coop 29.</description>
+    <files>
+        <filename module="modulo_section_coop_29">modulo_section_coop_29.php</filename>
+    </files>
+</extension>

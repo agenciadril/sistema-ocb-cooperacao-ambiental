@@ -1,0 +1,25 @@
+<extension type="template" version="4.0.0" client="site" method="upgrade">
+    <name>cooperacao</name>
+    <version>1.0.0</version>
+    <description>Template personalizado para Joomla com Bootstrap e jQuery</description>
+    <author>Seu Nome</author>
+    <files>
+        <filename>index.php</filename>
+        <filename>template.css</filename>
+        <filename>template.js</filename>
+        <folder>css</folder>
+        <folder>js</folder>
+        <folder>images</folder>
+        <folder>fonts</folder>
+    </files>
+    <positions>
+        <position>menu</position>
+        <position>busca</position>
+        <position>breadcrumbs</position>
+        <position>title</position>
+        <position>home</position>
+        <position>content</position>
+        <position>submitcase</position>
+        <position>footer</position>
+    </positions>
+</extension>
