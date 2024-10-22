@@ -208,7 +208,7 @@ $languageTag = $app->getLanguage()->getTag();
                                 ?>
                                 <div class="txt">
                                     <h1>Environmental Cooperation</h1>
-                                    <p>Environmental cooperation is essential for sustainability and the future of the planet.</p>
+                                    <p>Cooperativism cares for people, communities, and the environment.</p>
                                 </div>
                                 <?php
                             }
@@ -241,60 +241,102 @@ $languageTag = $app->getLanguage()->getTag();
         </div>
     </div>
     <!-- Modal -->
-        <div id="modal" class="modal">
-        <div class="modal-content">
-            <span class="close-btn">
+    <div id="modal" class="modal">
+    <div class="modal-content">
+        <span class="close-btn">
             <img src="/templates/cooperacao/images/bg/x.svg" alt="">
-            </span>
-            <div class="ant-card ">
+        </span>
+        <div class="ant-card ">
             <div class="ant-card-content">
                 <h1 class="title">
-                <?php echo ($languageTag == 'pt-BR') ? 'COOP NA COP28' : 'COOP AT COP28'; ?>
+                    <?php echo ($languageTag == 'pt-BR') ? 'COOP NA COP28' : 'COOP AT COP28'; ?>
                 </h1>
                 <p class="text-content">
-                <?php echo ($languageTag == 'pt-BR') 
-                    ? 'Energias renováveis e neutralidade de carbono são as temáticas do momento quando o assunto é sustentabilidade. Na COP 27, mostramos a atuação das coops agro nessas frentes e os impactos positivos para o meio ambiente.'
-                    : 'Renewable energies and carbon neutrality are the trending topics when it comes to sustainability. At COP 27, we showcased the efforts of agro coops in these areas and the positive impacts on the environment.'; ?>
+                    <?php echo ($languageTag == 'pt-BR') 
+                        ? 'Realizada no ano de 2023, em Dubai, nos Emirados Árabes Unidos, o Sistema OCB participou de quatro painéis e compartilhou as boas práticas promovidas pelo cooperativismo que reafirmam o protagonismo do movimento na preservação dos recursos naturais e na produção responsável, de forma inclusiva e ambientalmente correta.'
+                        : "Held in 2023 in Dubai, United Arab Emirates, the OCB System participated in four panels and shared the best practices promoted by cooperativism, reaffirming the movement's leadership in preserving natural resources and promoting responsible production, in an inclusive and environmentally correct manner."; ?>
+                </p>
+            </div>
+            <div>
+                <div class="btns-28">
+                    <div class="group-btn-28">
+                        <a href="https://www.youtube.com/watch?v=PzA2aqKbXQM" target="_blank">
+                            <?php echo ($languageTag == 'pt-BR') ? 'Painel 1' : 'Panel 1'; ?>
+                        </a>
+                        <p>
+                            <?php echo ($languageTag == 'pt-BR') 
+                                ? 'Cooperativas: aliadas da sustentabilidade ambiental e segurança alimentar' 
+                                : 'Cooperatives: allies for environmental sustainability and food security'; ?>
+                        </p>
+                    </div>
+                    <div class="group-btn-28">
+                        <a href="https://www.youtube.com/watch?v=UmH9aLW5thc" target="_blank">
+                            <?php echo ($languageTag == 'pt-BR') ? 'Painel 2' : 'Panel 2'; ?>
+                        </a>
+                        <p>
+                            <?php echo ($languageTag == 'pt-BR') 
+                                ? 'Plano ABC+ e seu papel na segurança alimentar' 
+                                : 'ABC+ Plan and its role in food security'; ?>
+                        </p>
+                    </div>
+                </div>
+                <div class="btns-28">
+                    <div class="group-btn-28">
+                        <a href="https://www.youtube.com/watch?v=OxLSjUZko_8" target="_blank">
+                            <?php echo ($languageTag == 'pt-BR') ? 'Painel 3' : 'Panel 3'; ?>
+                        </a>
+                        <p>
+                            <?php echo ($languageTag == 'pt-BR') 
+                                ? 'Territórios Indígenas: segurança para o planeta, lar para quem protege' 
+                                : 'Indigenous Territories: security for the planet, home for those who protect'; ?>
+                        </p>
+                    </div>
+                    <div class="group-btn-28">
+                        <a href="https://www.youtube.com/watch?v=VcgIRnGmln0" target="_blank">
+                            <?php echo ($languageTag == 'pt-BR') ? 'Painel 4' : 'Panel 4'; ?>
+                        </a>
+                        <p>
+                            <?php echo ($languageTag == 'pt-BR') 
+                                ? 'Trade House Pavilion' 
+                                : 'Trade House Pavilion'; ?>
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="ant-card mt-69">
+            <div class="ant-card-content">
+                <h1 class="title">
+                    <?php echo ($languageTag == 'pt-BR') ? 'COOP NA COP27' : 'COOP AT COP27'; ?>
+                </h1>
+                <p class="text-content">
+                    <?php echo ($languageTag == 'pt-BR') 
+                        ? 'Energias renováveis e neutralidade de carbono são as temáticas do momento quando o assunto é sustentabilidade. Na COP 27, mostramos a atuação das coops agro nessas frentes e os impactos positivos para o meio ambiente.'
+                        : 'Renewable energies and carbon neutrality are the trending topics when it comes to sustainability. At COP 27, we showcased the efforts of agro coops in these areas and the positive impacts on the environment.'; ?>
                 </p>
             </div>
             <a href="https://www.youtube.com/watch?v=kkJSMe1ynu4" target="_blank">
-                <?php echo ($languageTag == 'pt-BR') ? 'ASSISTA A APRESENTAÇÃO' : 'WATCH THE PRESENTATION'; ?>
+                <?php echo ($languageTag == 'pt-BR') ? 'ASSISTA AO PAINEL' : 'WATCH THE PANEL'; ?>
             </a>
-            </div>
-            <div class="ant-card mt-69">
+        </div>
+        <div class="ant-card mt-69">
             <div class="ant-card-content">
                 <h1 class="title">
-                <?php echo ($languageTag == 'pt-BR') ? 'COOP NA COP27' : 'COOP AT COP27'; ?>
+                    <?php echo ($languageTag == 'pt-BR') ? 'COOP NA COP26' : 'COOP AT COP26'; ?>
                 </h1>
                 <p class="text-content">
-                <?php echo ($languageTag == 'pt-BR') 
-                    ? 'Energias renováveis e neutralidade de carbono são as temáticas do momento quando o assunto é sustentabilidade. Na COP 27, mostramos a atuação das coops agro nessas frentes e os impactos positivos para o meio ambiente.'
-                    : 'Renewable energies and carbon neutrality are the trending topics when it comes to sustainability. At COP 27, we showcased the efforts of agro coops in these areas and the positive impacts on the environment.'; ?>
-                </p>
-            </div>
-            <a href="https://www.youtube.com/watch?v=kkJSMe1ynu4" target="_blank">
-                <?php echo ($languageTag == 'pt-BR') ? 'ASSISTA A APRESENTAÇÃO' : 'WATCH THE PRESENTATION'; ?>
-            </a>
-            </div>
-            <div class="ant-card mt-69">
-            <div class="ant-card-content">
-                <h1 class="title">
-                <?php echo ($languageTag == 'pt-BR') ? 'COOP NA COP26' : 'COOP AT COP26'; ?>
-                </h1>
-                <p class="text-content">
-                <?php echo ($languageTag == 'pt-BR') 
-                    ? 'Práticas sustentáveis têm tudo a ver com o cooperativismo. Fomos até a COP26 para mostrar ao mundo porque somos referência em sustentabilidade. Confira a apresentação da gerente geral da OCB, Fabíola Nader Motta.'
-                    : 'Sustainable practices are all about cooperativism. We went to COP26 to show the world why we are a reference in sustainability. Check out the presentation by the OCB general manager, Fabíola Nader Motta.'; ?>
+                    <?php echo ($languageTag == 'pt-BR') 
+                        ? 'Práticas sustentáveis têm tudo a ver com o cooperativismo. Fomos até a COP26 para mostrar ao mundo porque somos referência em sustentabilidade. Confira a apresentação da gerente geral da OCB, Fabíola Nader Motta.'
+                        : 'Sustainable practices are all about cooperativism. We went to COP26 to show the world why we are a reference in sustainability. Check out the presentation by the OCB general manager, Fabíola Nader Motta.'; ?>
                 </p>
             </div>
             <a href="https://cooperacaoambiental.coop.br/wp-content/uploads/2023/11/apresentacao_01_cop26.pptx" target="_blank">
                 <?php echo ($languageTag == 'pt-BR') ? 'BAIXE AQUI A APRESENTAÇÃO' : 'DOWNLOAD THE PRESENTATION HERE'; ?>
             </a>
-            </div>
-            
-           
         </div>
-        </div>
+    </div>
+</div>
+
     <!-- Incluir o Slick Slider Script -->
     <script>
         jQuery(document).ready(function ($) {

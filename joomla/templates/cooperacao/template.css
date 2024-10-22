@@ -2257,6 +2257,28 @@ footer .acompanhe {
   margin-top: 40px;
 }
 
+.group-btn-28 {
+  width: 148px;
+}
+
+.group-btn-28 a {
+  display: flex;
+  justify-content: center;
+  text-transform: uppercase;
+}
+.group-btn-28 p {
+  font-size: 10px;
+  color: white;
+  line-height: 12px;
+  padding-top: 6px;
+  font-weight: 600;
+}
+
+.btns-28 {
+  display: flex;
+  gap: 25px;
+}
+
 /* Mobile
 --------------------------------------------------*/
 @media (max-width: 980px) {
@@ -2265,10 +2287,12 @@ footer .acompanhe {
     gap: 10px;
   }
 
-  .modal-content {
+   .modal-content {
     padding: 35px 25px;
     border-radius: 15px;
     width: 380px;
+    height: 80%;
+    overflow: scroll;
   }
 
   footer .acompanhe {
