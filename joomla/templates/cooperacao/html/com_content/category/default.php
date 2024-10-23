@@ -18,7 +18,8 @@ $db = Factory::getDbo();
 $caseCategoryId = 8;
 
 // Obtém os filtros selecionados
-$regiao = $app->input->getInt('regiao');
+$regiao = $app->input->getString('regiao');
+$categoriaUnica = $app->input->getString('categoriaUnica');
 $categoria = $app->input->getInt('categoria', $category->id); // Padrão para categoria atual
 
 // Cria a consulta para buscar as subcategorias no idioma atual
@@ -36,6 +37,77 @@ $subcategories = $db->loadObjectList();
 $filteredArticles = array_filter($articles, function($article) use ($languageTag) {
     return $article->language === $languageTag || $article->language === '*'; // Inclui artigos no idioma ativo ou em todos os idiomas
 });
+
+// Cria arrays vazios para armazenar as regiões e categorias únicas
+$regioesUnicas = [];
+$categoriasUnicas = [];
+
+// Preenche os arrays de regiões e categorias antes de aplicar filtros aos artigos
+foreach ($filteredArticles as $article): ?>
+    <?php
+    // Recupera os campos "Região" e "Categoria" da ficha técnica
+    $fichaTecnicaQuery = $db->getQuery(true)
+        ->select('f.value, fld.title')
+        ->from($db->quoteName('#__fields_values', 'f'))
+        ->join('LEFT', $db->quoteName('#__fields', 'fld') . ' ON fld.id = f.field_id')
+        ->where('f.item_id = ' . (int) $article->id)
+        ->where('fld.title IN ("Região", "Categoria")'); // Filtra por "Região" e "Categoria"
+
+    $db->setQuery($fichaTecnicaQuery);
+    $fichaTecnicaResults = $db->loadObjectList();
+
+    // Percorre os resultados e armazena os valores de Região e Categoria
+    foreach ($fichaTecnicaResults as $field) {
+        if ($field->title === 'Região' && !in_array($field->value, $regioesUnicas)) {
+            // Adiciona o valor da Região ao array se for único
+            $regioesUnicas[] = $field->value;
+        }
+        if ($field->title === 'Categoria' && !in_array($field->value, $categoriasUnicas)) {
+            // Adiciona o valor da Categoria ao array se for único
+            $categoriasUnicas[] = $field->value;
+        }
+    }
+    ?>
+<?php endforeach; ?>
+
+<?php
+// Agora filtra os artigos com base nos filtros selecionados
+$filteredArticles = array_filter($filteredArticles, function($article) use ($regiao, $categoriaUnica, $categoria, $db) {
+    // Filtra artigos com base no filtro de região
+    if ($regiao) {
+        $query = $db->getQuery(true)
+            ->select('value')
+            ->from('#__fields_values')
+            ->where('item_id = ' . (int) $article->id)
+            ->where('field_id = (SELECT id FROM #__fields WHERE name = "regiao")');
+        $db->setQuery($query);
+        $articleRegion = $db->loadResult();
+        if ($articleRegion != $regiao) {
+            return false; // Exclui o artigo se a região não bater
+        }
+    }
+
+    // Filtra artigos com base no filtro de categoriaUnica (ficha técnica)
+    if ($categoriaUnica) {
+        $query = $db->getQuery(true)
+            ->select('value')
+            ->from('#__fields_values')
+            ->where('item_id = ' . (int) $article->id)
+            ->where('field_id = (SELECT id FROM #__fields WHERE name = "categoria")');
+        $db->setQuery($query);
+        $articleCategoria = $db->loadResult();
+        if ($articleCategoria != $categoriaUnica) {
+            return false; // Exclui o artigo se a categoria não bater
+        }
+    }
+
+    // Filtra artigos com base no filtro de categoria (categoria padrão)
+    if ($categoria && $article->catid != $categoria) {
+        return false; // Exclui o artigo se a categoria não bater
+    }
+
+    return true; // Inclui o artigo se passar pelos filtros
+});
 ?>
 
 <section class="listaNoticias">
@@ -50,33 +122,29 @@ $filteredArticles = array_filter($articles, function($article) use ($languageTag
                             <div class="row justify-content-center align-items-end">
                                 <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
                                     <p class="mb-1"><?php echo ($languageTag == 'pt-BR') ? 'Cases do' : 'Cases from'; ?></p>
-                                    <select name="regiao" id="regiao" class="form-select" onchange="this.form.submit()">
+                                    <select name="regiao" id="regiao" class="form-select" >
                                         <option value=""><?php echo ($languageTag == 'pt-BR') ? 'Todos' : 'All'; ?></option>
-                                        <option value="88" <?= $regiao == 88 ? 'selected' : '' ?>><?php echo ($languageTag == 'pt-BR') ? 'Brasil' : 'Brazil'; ?></option>
-                                        <option value="89" <?= $regiao == 89 ? 'selected' : '' ?>><?php echo ($languageTag == 'pt-BR') ? 'Centro-Oeste' : 'Midwest'; ?></option>
-                                        <option value="90" <?= $regiao == 90 ? 'selected' : '' ?>><?php echo ($languageTag == 'pt-BR') ? 'Internacional' : 'International'; ?></option>
-                                        <option value="91" <?= $regiao == 91 ? 'selected' : '' ?>><?php echo ($languageTag == 'pt-BR') ? 'Nordeste' : 'Northeast'; ?></option>
-                                        <option value="92" <?= $regiao == 92 ? 'selected' : '' ?>><?php echo ($languageTag == 'pt-BR') ? 'Norte' : 'North'; ?></option>
-                                        <option value="93" <?= $regiao == 93 ? 'selected' : '' ?>><?php echo ($languageTag == 'pt-BR') ? 'Sudeste' : 'Southeast'; ?></option>
-                                        <option value="94" <?= $regiao == 94 ? 'selected' : '' ?>><?php echo ($languageTag == 'pt-BR') ? 'Sul' : 'South'; ?></option>
+                                        <?php foreach ($regioesUnicas as $regiaoUnica): ?>
+                                            <option value="<?= htmlspecialchars($regiaoUnica); ?>" <?= $regiao == $regiaoUnica ? 'selected' : '' ?>>
+                                                <?php echo htmlspecialchars($regiaoUnica); ?>
+                                            </option>
+                                        <?php endforeach; ?>
                                     </select>
                                 </div>
                                 <!-- Filtro de categorias -->
                                 <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
                                     <p class="mb-1"><?php echo ($languageTag == 'pt-BR') ? 'Categorias' : 'Categories'; ?></p>
-                                    <select name="categoria" id="categoria" class="form-select" onchange="this.form.submit()">
-                                        <option value="<?= $category->id ?>" <?= $categoria == $category->id ? 'selected' : '' ?>>
-                                            <?php echo ($languageTag == 'pt-BR') ? 'Todos' : 'All'; ?>
-                                        </option>
-                                        <?php foreach ($subcategories as $subcategory): ?>
-                                            <option value="<?= $subcategory->id ?>" <?= $categoria == $subcategory->id ? 'selected' : '' ?>>
-                                                <?= htmlspecialchars($subcategory->title); ?>
+                                    <select name="categoriaUnica" id="categoria" class="form-select" >
+                                        <option value=""><?php echo ($languageTag == 'pt-BR') ? 'Todos' : 'All'; ?></option>
+                                        <?php foreach ($categoriasUnicas as $catUnica): ?>
+                                            <option value="<?= htmlspecialchars($catUnica); ?>" <?= $categoriaUnica == $catUnica ? 'selected' : '' ?>>
+                                                <?= htmlspecialchars($catUnica); ?>
                                             </option>
                                         <?php endforeach; ?>
                                     </select>
                                 </div>
                                 <div class="col-lg-1 col-md-1 col-sm-1 col-xs-1">
-                                    <div class="icon_search" onclick="this.form.submit()"></div>
+                                    <button class="icon_search" onclick="this.form.submit()"></button>
                                 </div>
                             </div>
                         </form>
@@ -88,24 +156,6 @@ $filteredArticles = array_filter($articles, function($article) use ($languageTag
 
         <div class="row">
             <?php foreach ($filteredArticles as $article): ?>
-                <?php
-                // Filtra artigos com base no filtro selecionado
-                if ($categoria != $category->id && $article->catid != $categoria) {
-                    continue;
-                }
-                if ($regiao) {
-                    $query = $db->getQuery(true)
-                        ->select('value')
-                        ->from('#__fields_values')
-                        ->where('item_id = ' . $article->id)
-                        ->where('field_id = (SELECT id FROM #__fields WHERE name = "regiao")');
-                    $db->setQuery($query);
-                    $articleRegion = $db->loadResult();
-                    if ($articleRegion != $regiao) {
-                        continue;
-                    }
-                }
-                ?>
                 <div class="col-lg-6 col-md-12 col-sm-12 col-xs-12 p-2">
                     <div class="boxListCases">
                         <div class="box">

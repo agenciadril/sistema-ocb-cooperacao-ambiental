@@ -19,6 +19,7 @@ $query = $db->getQuery(true)
     ->where($db->quoteName('catid') . ' = ' . $db->quote(8))
     ->where($db->quoteName('state') . ' = 1')
     ->where($db->quoteName('language') . ' = ' . $db->quote($languageTag)) // Filtro para o idioma atual
+    ->order($db->quoteName('created') . ' DESC') // Ordena pela data de criação de forma decrescente
     ->setLimit(4);
 
 $db->setQuery($query);

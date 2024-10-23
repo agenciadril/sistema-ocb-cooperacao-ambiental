@@ -64,3 +64,10 @@
 2024-10-21	13:03:39	INFO	Executando tarefa#02 'Session GC'.
 2024-10-21	13:03:39	INFO	Tarefa> SessionGC end
 2024-10-21	13:03:39	INFO	Tarefa#02 concluída com sucesso em 0.00 (net 0.00) segundos.
+2024-10-22	13:02:39	INFO	Executando tarefa#03 'Update Notification'.
+2024-10-22	13:02:40	INFO	Tarefa> Could not instantiate mail function.
+2024-10-22	13:02:40	INFO	Tarefa> UpdateNotification end
+2024-10-22	13:02:40	INFO	Tarefa#03 concluída com sucesso em 1.91 (net 1.91) segundos.
+2024-10-22	13:06:30	INFO	Executando tarefa#02 'Session GC'.
+2024-10-22	13:06:30	INFO	Tarefa> SessionGC end
+2024-10-22	13:06:30	INFO	Tarefa#02 concluída com sucesso em 0.00 (net 0.00) segundos.

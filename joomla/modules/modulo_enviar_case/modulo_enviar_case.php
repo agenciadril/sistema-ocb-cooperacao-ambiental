@@ -24,7 +24,7 @@ $languageTag = $app->getLanguage()->getTag();
                             <strong>Send it to us!</strong>
                         <?php endif; ?>
                     </h1>
-                    <a href="/" class="btn btEnviarCase">
+                    <a href="https://pt.surveymonkey.com/r/radarinova" target="_blank" class="btn btEnviarCase">
                         <?php echo ($languageTag == 'pt-BR') ? 'Enviar case' : 'Submit case'; ?>
                     </a>
                 </div>
