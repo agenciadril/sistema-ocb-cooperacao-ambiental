@@ -24,7 +24,7 @@ $fichaTecnicaFields = array_filter($this->item->jcfields, function($field) {
     <div class="container">
         <div class="titulo">
             <h1><?php echo $this->item->title; ?></h1>
-            <h5><?php echo ($languageTag == 'pt-BR') ? 'Por' : 'By'; ?> <?php echo $this->item->author; ?>, <?php echo JHtml::_('date', $this->item->publish_up, 'd/m/Y H:i'); ?></h5>
+            <h5> <?php echo JHtml::_('date', $this->item->publish_up, 'd/m/Y H:i'); ?></h5>
         </div>
         <article>
             <?php 

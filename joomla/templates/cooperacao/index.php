@@ -93,6 +93,7 @@ $languageTag = $app->getLanguage()->getTag();
 
 <head>
     <jdoc:include type="head" />
+    <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="<?php echo $this->baseurl ?>/templates/<?php echo $this->template ?>/css/bootstrap.min.css" />
     <link rel="stylesheet" href="<?php echo $this->baseurl ?>/templates/<?php echo $this->template ?>/css/slick.css" />
@@ -260,7 +261,7 @@ $languageTag = $app->getLanguage()->getTag();
             <div>
                 <div class="btns-28">
                     <div class="group-btn-28">
-                        <a href="https://www.youtube.com/watch?v=PzA2aqKbXQM" target="_blank">
+                        <a href="https://www.youtube.com/watch?v=UmH9aLW5thc" target="_blank">
                             <?php echo ($languageTag == 'pt-BR') ? 'Painel 1' : 'Panel 1'; ?>
                         </a>
                         <p>
@@ -270,7 +271,7 @@ $languageTag = $app->getLanguage()->getTag();
                         </p>
                     </div>
                     <div class="group-btn-28">
-                        <a href="https://www.youtube.com/watch?v=UmH9aLW5thc" target="_blank">
+                        <a href="https://www.youtube.com/watch?v=OxLSjUZko_8&t=6257s" target="_blank">
                             <?php echo ($languageTag == 'pt-BR') ? 'Painel 2' : 'Panel 2'; ?>
                         </a>
                         <p>
@@ -282,7 +283,7 @@ $languageTag = $app->getLanguage()->getTag();
                 </div>
                 <div class="btns-28">
                     <div class="group-btn-28">
-                        <a href="https://www.youtube.com/watch?v=OxLSjUZko_8" target="_blank">
+                        <a href="https://www.youtube.com/watch?v=PzA2aqKbXQM" target="_blank">
                             <?php echo ($languageTag == 'pt-BR') ? 'Painel 3' : 'Panel 3'; ?>
                         </a>
                         <p>
@@ -338,32 +339,37 @@ $languageTag = $app->getLanguage()->getTag();
 </div>
 
     <!-- Incluir o Slick Slider Script -->
-    <script>
-        jQuery(document).ready(function ($) {
-            $('.events-slider').slick({
-                infinite: true,
-                slidesToShow: 2,
-                slidesToScroll: 1,
-                dots: true,
-                arrows: true,
-                responsive: [{
+<script>
+    jQuery(document).ready(function ($) {
+        const slideCount = $('.events-slider .slick-slide').length;
+
+        $('.events-slider').slick({
+            infinite: true,
+            slidesToShow: 2,
+            slidesToScroll: 1,
+            dots: slideCount > 2, // Apenas exibir dots se houver mais de 2 slides
+            arrows: true,
+            responsive: [
+                {
                     breakpoint: 768,
                     settings: {
                         slidesToShow: 2,
-                        slidesToScroll: 1
+                        slidesToScroll: 1,
+                        dots: slideCount > 2 // Reaplica a condição em breakpoints menores
                     }
                 },
                 {
                     breakpoint: 500,
                     settings: {
                         slidesToShow: 1,
-                        slidesToScroll: 1
+                        slidesToScroll: 1,
+                        dots: slideCount > 2 // Reaplica a condição em breakpoints menores
                     }
                 }
-                ]
-            });
+            ]
         });
-    </script>
+    });
+</script>
     <!-- Slider JS -->
     <script>
         jQuery(document).ready(function ($) {

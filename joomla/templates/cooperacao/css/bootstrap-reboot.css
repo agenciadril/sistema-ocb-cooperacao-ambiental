@@ -326,7 +326,7 @@ small {
 }
 
 mark {
-  padding: 0.1875em;
+  padding: 0px !important;
   color: var(--bs-highlight-color);
   background-color: var(--bs-highlight-bg);
 }

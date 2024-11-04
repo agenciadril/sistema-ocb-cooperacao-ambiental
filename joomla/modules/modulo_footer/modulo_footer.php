@@ -12,21 +12,33 @@ $languageTag = $app->getLanguage()->getTag();
         <div class="acompanhe">
             <p><?php echo ($languageTag == 'pt-BR') ? 'Acompanhe nosso trabalho' : 'Follow our work'; ?></p>
             <div class="redes">
+              <a href="https://www.facebook.com/somoscoop" target="_blank">
                 <img src="/templates/cooperacao/images/bg/Face-1.svg" alt="<?php echo ($languageTag == 'pt-BR') ? 'Facebook' : 'Facebook'; ?>">
+              </a>
                 <div class="barra-lat"></div>
-                <img src="/templates/cooperacao/images/bg/insta-1.svg" alt="<?php echo ($languageTag == 'pt-BR') ? 'Instagram' : 'Instagram'; ?>">
+                <a href="https://www.instagram.com/sistemaocb" target="_blank">
+                  <img src="/templates/cooperacao/images/bg/insta-1.svg" alt="<?php echo ($languageTag == 'pt-BR') ? 'Instagram' : 'Instagram'; ?>">
+                </a>
                 <div class="barra-lat"></div>
-                <img src="/templates/cooperacao/images/bg/x-1.svg" alt="<?php echo ($languageTag == 'pt-BR') ? 'Twitter' : 'Twitter'; ?>">
+                <a href="https://x.com/sistemaocb" target="_blank">
+                  <img src="/templates/cooperacao/images/bg/x-1.svg" alt="<?php echo ($languageTag == 'pt-BR') ? 'Twitter' : 'Twitter'; ?>">
+                </a>
                 <div class="barra-lat"></div>
-                <img src="/templates/cooperacao/images/bg/flickr-1.svg" alt="<?php echo ($languageTag == 'pt-BR') ? 'Flickr' : 'Flickr'; ?>">
+                <a href="https://www.flickr.com/photos/sistemaocb/" target="_blank">
+                  <img src="/templates/cooperacao/images/bg/flickr-1.svg" alt="<?php echo ($languageTag == 'pt-BR') ? 'Flickr' : 'Flickr'; ?>">
+                </a>
                 <div class="barra-lat"></div>
-                <img src="/templates/cooperacao/images/bg/likedin-1.svg" alt="<?php echo ($languageTag == 'pt-BR') ? 'LinkedIn' : 'LinkedIn'; ?>">
+                <a href="https://www.linkedin.com/company/sistemaocb/" target="_blank">
+                  <img src="/templates/cooperacao/images/bg/likedin-1.svg" alt="<?php echo ($languageTag == 'pt-BR') ? 'LinkedIn' : 'LinkedIn'; ?>">
+                </a>
                 <div class="barra-lat"></div>
-                <img src="/templates/cooperacao/images/bg/youtube-1.svg" alt="<?php echo ($languageTag == 'pt-BR') ? 'YouTube' : 'YouTube'; ?>">
+                <a href="https://www.youtube.com/@SomosCoop" target="_blank">
+                  <img src="/templates/cooperacao/images/bg/youtube-1.svg" alt="<?php echo ($languageTag == 'pt-BR') ? 'YouTube' : 'YouTube'; ?>">
+                </a>
                 <div class="barra-lat"></div>
             </div>
         </div>
-        <div class="row">
+        <!-- <div class="row">
             <div class="col-lg-3 col-4 col-md-12 col-sm-12 col-xs-12">
                 <div class="links">
                     <h3 class="pai"><?php echo ($languageTag == 'pt-BR') ? 'Home' : 'Home'; ?></h3>
@@ -62,7 +74,7 @@ $languageTag = $app->getLanguage()->getTag();
                     <h3 class="pai"><a href="/noticias" title="<?php echo ($languageTag == 'pt-BR') ? 'Notícias' : 'News'; ?>"><?php echo ($languageTag == 'pt-BR') ? 'Notícias' : 'News'; ?></a></h3>
                 </div>
             </div>
-        </div>
+        </div> -->
         <div class="row">
             <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 d-lg-block d-none">
                 <div class="logos_1">
@@ -73,7 +85,7 @@ $languageTag = $app->getLanguage()->getTag();
                             <li><a href="https://www.flickr.com/photos/sistemaocb/" target="_blank" class="redes" title="Flickr"><img src="/templates/cooperacao/images/bg/flickr-1-mob.svg" class="rede"></a></li>
                             <li><a href="https://www.youtube.com/@SomosCoop" target="_blank" class="redes" title="YouTube"><img src="/templates/cooperacao/images/bg/youtube.svg" class="rede"></a></li>
                             <li><a href="https://www.instagram.com/sistemaocb" target="_blank" class="redes" title="Instagram"><img src="/templates/cooperacao/images/bg/instagram.svg" class="rede"></a></li>
-                            <li><a href="https://www.instagram.com/sistemaocb" target="_blank" class="redes" title="LinkedIn"><img src="/templates/cooperacao/images/bg/likedin-1-mob.svg" class="rede"></a></li>
+                            <li><a href="https://www.linkedin.com/company/sistemaocb/" target="_blank" class="redes" title="LinkedIn"><img src="/templates/cooperacao/images/bg/likedin-1-mob.svg" class="rede"></a></li>
                         </ul>
                     </div>
                 </div>

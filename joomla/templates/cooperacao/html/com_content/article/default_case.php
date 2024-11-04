@@ -29,25 +29,25 @@ $fichaTecnicaFields = array_filter($this->item->jcfields, function($field) {
                     <div class="detalhe" id="detalhe_ficha" style="display: none;">
                         <?php foreach ($fichaTecnicaFields as $field): ?>
                             <?php if ($field->name === 'cooperativa'): ?>
-                                <p><strong><?php echo ($languageTag == 'pt-BR') ? 'Cooperativa:' : 'Cooperative:'; ?></strong> <?= htmlspecialchars($field->value); ?></p>
+                                <p><strong><?php echo ($languageTag == 'pt-BR') ? 'Cooperativa:' : 'Cooperative:'; ?></strong> <?= $field->value; ?></p>
                             <?php elseif ($field->name === 'regiao'): ?>
-                                <p><strong><?php echo ($languageTag == 'pt-BR') ? 'Região:' : 'Region:'; ?></strong> <?= htmlspecialchars($field->value); ?></p>
+                                <p><strong><?php echo ($languageTag == 'pt-BR') ? 'Região:' : 'Region:'; ?></strong> <?= $field->value; ?></p>
                             <?php elseif ($field->name === 'categoria'): ?>
-                                <p><strong><?php echo ($languageTag == 'pt-BR') ? 'Categoria:' : 'Category:'; ?></strong> <?= htmlspecialchars($field->value); ?></p>
+                                <p><strong><?php echo ($languageTag == 'pt-BR') ? 'Categoria:' : 'Category:'; ?></strong> <?= $field->value; ?></p>
                             <?php elseif ($field->name === 'acao'): ?>
-                                <p><strong><?php echo ($languageTag == 'pt-BR') ? 'Ação:' : 'Action:'; ?></strong> <?= htmlspecialchars($field->value); ?></p>
-                            <?php elseif ($field->name === 'ods2'): ?>
+                                <p><strong><?php echo ($languageTag == 'pt-BR') ? 'Ação:' : 'Action:'; ?></strong> <?= $field->value; ?></p>
+                            <?php elseif ($field->name === 'odss'): ?>
                                 <p><strong><?php echo ($languageTag == 'pt-BR') ? 'ODSs:' : 'SDGs:'; ?></strong></p>
                                 <ul>
                                     <?php foreach (explode("\n", $field->value) as $ods): ?>
-                                        <li><?= htmlspecialchars($ods); ?></li>
+                                        <li><?= $ods; ?></li>
                                     <?php endforeach; ?>
                                 </ul>
                             <?php elseif ($field->name === 'resultados'): ?>
                                 <p><strong><?php echo ($languageTag == 'pt-BR') ? 'Resultados:' : 'Results:'; ?></strong></p>
                                 <ul>
                                     <?php foreach (explode("\n", $field->value) as $resultado): ?>
-                                        <li><?= htmlspecialchars($resultado); ?></li>
+                                        <li><?= $resultado; ?></li>
                                     <?php endforeach; ?>
                                 </ul>
                             <?php endif; ?>
@@ -64,7 +64,7 @@ $fichaTecnicaFields = array_filter($this->item->jcfields, function($field) {
     <div class="container">
         <div class="titulo">
             <h1><?php echo $this->item->title; ?></h1>
-            <h5><?php echo ($languageTag == 'pt-BR') ? 'Por' : 'By'; ?> <?php echo $this->item->author; ?>, <?php echo JHtml::_('date', $this->item->publish_up, 'd/m/Y H:i'); ?></h5>
+            <h5> <?php echo JHtml::_('date', $this->item->publish_up, 'd/m/Y H:i'); ?></h5>
         </div>
         <article>
             <?php 
@@ -101,6 +101,7 @@ $fichaTecnicaFields = array_filter($this->item->jcfields, function($field) {
                 ->where($db->quoteName('a.catid') . ' = ' . (int) $this->item->catid)
                 ->where($db->quoteName('a.id') . ' != ' . (int) $this->item->id)
                 ->where($db->quoteName('a.state') . ' = 1')
+                ->where($db->quoteName('language') . ' = ' . $db->quote($languageTag))
                 ->order('RAND()')
                 ->setLimit(4);
 

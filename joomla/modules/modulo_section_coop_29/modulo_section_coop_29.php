@@ -18,20 +18,41 @@ $eventCategoryId = 9; // Apenas eventos da categoria com ID 9
 
 // Seção de Eventos
 $db = Factory::getDbo();
+// IDs dos campos personalizados no Joomla
+$dataEventoFieldId = 1; // ID real do campo "data-evento"
+$horaEventoFieldId = 2; //  ID real do campo "hora-evento"
+$codigoDoVideo = 17; //  ID real do campo "link-evento"
+$dataModalFieldId = 11; //  ID real do campo "data_modal"
+$horarioModalFieldId = 12; //  ID real do campo "horario_modal"
+$objetivoModalFieldId = 13; // ID real do campo "objetivo_modal"
+$composicaoPainelModalFieldId = 18; //  real do campo "composicao_painel_modal_ac"
+$participantesModalFieldId = 16; //  ID real do campo "participantes_modal"
+
+// Construindo a query
 $query = $db->getQuery(true)
-    ->select('a.id, a.title, a.introtext, a.images, c.value as data_evento, c2.value as hora_evento, c3.value as link_evento')
+    ->select('a.id, a.title, a.introtext, a.images, c.value as data_evento, c2.value as hora_evento, c3.value as codigo_do_video, c4.value as data_modal, c5.value as horario_modal, c6.value as objetivo_modal, c7.value as composicao_painel_modal_ac, c8.value as participantes_modalf')
     ->from($db->quoteName('#__content', 'a'))
-    ->join('LEFT', $db->quoteName('#__fields_values', 'c') . ' ON a.id = c.item_id AND c.field_id = (SELECT id FROM #__fields WHERE name = "data-evento")')
-    ->join('LEFT', $db->quoteName('#__fields_values', 'c2') . ' ON a.id = c2.item_id AND c2.field_id = (SELECT id FROM #__fields WHERE name = "hora-evento")')
-    ->join('LEFT', $db->quoteName('#__fields_values', 'c3') . ' ON a.id = c3.item_id AND c3.field_id = (SELECT id FROM #__fields WHERE name = "link-evento")')
+    ->join('LEFT', $db->quoteName('#__fields_values', 'c') . ' ON a.id = c.item_id AND c.field_id = ' . (int) $dataEventoFieldId)
+    ->join('LEFT', $db->quoteName('#__fields_values', 'c2') . ' ON a.id = c2.item_id AND c2.field_id = ' . (int) $horaEventoFieldId)
+    ->join('LEFT', $db->quoteName('#__fields_values', 'c3') . ' ON a.id = c3.item_id AND c3.field_id = ' . (int) $codigoDoVideo)
+    ->join('LEFT', $db->quoteName('#__fields_values', 'c4') . ' ON a.id = c4.item_id AND c4.field_id = ' . (int) $dataModalFieldId)
+    ->join('LEFT', $db->quoteName('#__fields_values', 'c5') . ' ON a.id = c5.item_id AND c5.field_id = ' . (int) $horarioModalFieldId)
+    ->join('LEFT', $db->quoteName('#__fields_values', 'c6') . ' ON a.id = c6.item_id AND c6.field_id = ' . (int) $objetivoModalFieldId)
+    ->join('LEFT', $db->quoteName('#__fields_values', 'c7') . ' ON a.id = c7.item_id AND c7.field_id = ' . (int) $composicaoPainelModalFieldId)
+    ->join('LEFT', $db->quoteName('#__fields_values', 'c8') . ' ON a.id = c8.item_id AND c8.field_id = ' . (int) $participantesModalFieldId)
     ->where($db->quoteName('a.catid') . ' = ' . $db->quote($eventCategoryId))
     ->where($db->quoteName('a.state') . ' = 1')
     ->where($db->quoteName('a.language') . ' = ' . $db->quote($languageTag)) // Filtrar pelo idioma ativo
     ->order($db->quoteName('c.value') . ' ASC')
     ->setLimit(8);
 
+// Executando a query
+$db->setQuery($query);
+
+
 $db->setQuery($query);
 $events = $db->loadObjectList();
+
 
 
 // Seção de Cases de Cooperativas
@@ -70,7 +91,7 @@ $manifesto = $db->loadObject();
         <div class="row">
             <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" id="c29">
                 <h2>
-                    <span class="d-none d-lg-inline"><?php echo ($languageTag == 'pt-BR') ? 'Coop na Cop29' : 'Coop at Cop29'; ?></span>
+                    <span class="d-none d-lg-inline"><?php echo ($languageTag == 'pt-BR') ? 'Coop na COP29' : 'Coop at COP29'; ?></span>
                     <span class="d-lg-none d-inline"><?php echo ($languageTag == 'pt-BR') ? 'Cop 29' : 'Cop 29'; ?></span>
                 </h2>
             </div>
@@ -87,14 +108,23 @@ $manifesto = $db->loadObject();
                                     <div class="coop">
                                         <div class="data">
                                             <h3><?php echo $event->data_evento ?></h3>
-                                            <h4><?php echo $event->title; ?></h4>
-                                            <a href="<?php echo $event->link_evento ? $event->link_evento : Route::_('index.php?option=com_content&view=article&id=' . $event->id); ?>" class="btn">
-                                                <?php echo ($languageTag == 'pt-BR') ? 'ACESSE' : 'ACCESS'; ?>
-                                            </a>
                                         </div>
                                         <div class="txt">
-                                            <p><?php echo $event->introtext; ?></p>
+                                            <?php echo $event->introtext; ?>
                                             <p><strong><?php echo ($languageTag == 'pt-BR') ? 'Horário em Brasília:' : 'Brasília Time:'; ?></strong> <?php echo $event->hora_evento; ?></p>
+                                            <div class="group-btn-txt">
+                                                <a onclick="openModalEventos(
+    '<?php echo $event->introtext; ?>',
+    '<?php echo $event->codigo_do_video; ?>',
+    '<?php echo $event->data_modal; ?>',
+    '<?php echo $event->horario_modal; ?>',
+    '<?php echo $event->objetivo_modal; ?>',
+    '<?php echo $event->composicao_painel_modal_ac; ?>',
+    '<?php echo $event->participantes_modalf; ?>'
+)" class="btn">
+                                                    <?php echo ($languageTag == 'pt-BR') ? 'SAIBA MAIS' : 'LEARN MORE'; ?>
+                                                </a>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
@@ -113,15 +143,12 @@ $manifesto = $db->loadObject();
                         <h3><?php echo ($languageTag == 'pt-BR') ? 'Cases de cooperativas' : 'Cooperative Cases'; ?></h3>
                     </div>
                     <div class="txt">
-                        <p><?php echo ($languageTag == 'pt-BR') ? 'Conheça os cases das cooperativas que estarão nos painéis da Cop29' : 'Learn about some cooperative cases working on sustainability.'; ?></p>
+                        <p><?php echo ($languageTag == 'pt-BR') ? 'Conheça os cases das cooperativas que estarão nos painéis da COP29' : 'Learn about some cooperative cases working on sustainability.'; ?></p>
                         <ul class="lista">
                             <?php foreach ($cooperatives as $coop): ?>
                                 <li><a href="/cases/<?php echo $coop->alias; ?>"><?php echo htmlspecialchars($coop->cooperativas_name); ?></a></li>
                             <?php endforeach; ?>
                         </ul>
-                    </div>
-                    <div class="veja-mais">
-                        <a class="btn btSaibaMaisFine" href="/cases/"><?php echo ($languageTag == 'pt-BR') ? 'Veja mais cases' : 'See more cases'; ?></a>
                     </div>
                 </div>
             </div>
@@ -150,4 +177,55 @@ $manifesto = $db->loadObject();
             </div>
         </div>
     </div>
+
+    <div id="modal-eventos" class="modal">
+    <div class="modal-content">
+      <span class="close-btn-ev">
+        <img src="/templates/cooperacao/images/bg/x.svg" alt="Fechar">
+      </span>
+      <p class="title-pa">Painel</p>
+      <div id="modal-eventos-content">
+
+      </div>
+    </div>
+  </div>
 </section>
+
+<script>
+    // Função para abrir o modal com os parâmetros fornecidos
+    function openModalEventos(introText, linkEvento, dataModal, horarioModal, objetivoModal, composicaoPainelModal, participantesModal) {
+      const modal = document.getElementById('modal-eventos');
+      const contentContainer = document.getElementById('modal-eventos-content');
+      const closeModalBtn = document.querySelector(".close-btn-ev");
+
+      // Conteúdo do modal
+      contentContainer.innerHTML = `
+      
+          <div class="intro-text">${introText}</div>
+          <p><strong>Data:</strong> ${dataModal}</p>
+          <p><strong>Horário:</strong> ${horarioModal}</p>
+          <p><strong>Objetivo:</strong> ${objetivoModal}</p>
+          <p class="partici"><strong>Composição do Painel:</strong> </p>
+          <div class="content-color">
+          ${composicaoPainelModal}
+          </div>
+          ${participantesModal ? `<p class="partici"><strong>Participantes:</strong> </p> <div class="content-color">${participantesModal}</div>` : ''}
+          ${linkEvento ? `<iframe class="w-full h-[410px]" src="https://www.youtube.com/embed/${linkEvento}" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>` : ''}
+      `;
+
+      // Abrir modal
+      modal.classList.add("active"); // Adiciona a classe 'active'
+
+      // Fechar modal ao clicar no botão de fechar
+      closeModalBtn.addEventListener("click", () => {
+        modal.classList.remove("active"); // Remove a classe 'active'
+      });
+
+      // Fechar modal ao clicar fora do conteúdo
+      window.addEventListener("click", (event) => {
+        if (event.target === modal) {
+          modal.classList.remove("active");
+        }
+      });
+    }
+  </script>

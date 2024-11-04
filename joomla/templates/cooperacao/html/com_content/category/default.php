@@ -74,33 +74,36 @@ foreach ($filteredArticles as $article): ?>
 // Agora filtra os artigos com base nos filtros selecionados
 $filteredArticles = array_filter($filteredArticles, function($article) use ($regiao, $categoriaUnica, $categoria, $db) {
     // Filtra artigos com base no filtro de região
-    if ($regiao) {
-        $query = $db->getQuery(true)
-            ->select('value')
-            ->from('#__fields_values')
-            ->where('item_id = ' . (int) $article->id)
-            ->where('field_id = (SELECT id FROM #__fields WHERE name = "regiao")');
-        $db->setQuery($query);
-        $articleRegion = $db->loadResult();
-        if ($articleRegion != $regiao) {
-            return false; // Exclui o artigo se a região não bater
-        }
-    }
+if ($regiao) {
+    $query = $db->getQuery(true)
+        ->select('value')
+        ->from('#__fields_values')
+        ->where('item_id = ' . (int) $article->id)
+        ->where('field_id = (SELECT id FROM #__fields WHERE name = "regiao")');
+    $db->setQuery($query);
+    $articleRegion = $db->loadResult();
 
-    // Filtra artigos com base no filtro de categoriaUnica (ficha técnica)
-    if ($categoriaUnica) {
-        $query = $db->getQuery(true)
-            ->select('value')
-            ->from('#__fields_values')
-            ->where('item_id = ' . (int) $article->id)
-            ->where('field_id = (SELECT id FROM #__fields WHERE name = "categoria")');
-        $db->setQuery($query);
-        $articleCategoria = $db->loadResult();
-        if ($articleCategoria != $categoriaUnica) {
-            return false; // Exclui o artigo se a categoria não bater
-        }
+    // Verifica se a região selecionada está contida no valor da região do artigo
+    if ($articleRegion && strpos($articleRegion, $regiao) === false) {
+        return false; // Exclui o artigo se a região não estiver contida
     }
+}
 
+   // Filtra artigos com base no filtro de categoriaUnica (ficha técnica)
+if ($categoriaUnica) {
+    $query = $db->getQuery(true)
+        ->select('value')
+        ->from('#__fields_values')
+        ->where('item_id = ' . (int) $article->id)
+        ->where('field_id = (SELECT id FROM #__fields WHERE name = "categoria")');
+    $db->setQuery($query);
+    $articleCategoria = $db->loadResult();
+
+    // Converte as variáveis para minúsculas antes de comparar
+    if (mb_strtolower($articleCategoria, 'UTF-8') != mb_strtolower($categoriaUnica, 'UTF-8')) {
+        return false; // Exclui o artigo se a categoria não bater
+    }
+}
     // Filtra artigos com base no filtro de categoria (categoria padrão)
     if ($categoria && $article->catid != $categoria) {
         return false; // Exclui o artigo se a categoria não bater
@@ -122,26 +125,86 @@ $filteredArticles = array_filter($filteredArticles, function($article) use ($reg
                             <div class="row justify-content-center align-items-end">
                                 <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
                                     <p class="mb-1"><?php echo ($languageTag == 'pt-BR') ? 'Cases do' : 'Cases from'; ?></p>
-                                    <select name="regiao" id="regiao" class="form-select" >
-                                        <option value=""><?php echo ($languageTag == 'pt-BR') ? 'Todos' : 'All'; ?></option>
-                                        <?php foreach ($regioesUnicas as $regiaoUnica): ?>
-                                            <option value="<?= htmlspecialchars($regiaoUnica); ?>" <?= $regiao == $regiaoUnica ? 'selected' : '' ?>>
-                                                <?php echo htmlspecialchars($regiaoUnica); ?>
-                                            </option>
-                                        <?php endforeach; ?>
-                                    </select>
+                                    <?php
+$opcoes = [
+    'pt-BR' => [
+        'Brasil' => 'Brasil',
+        'Centro-Oeste' => 'Centro-Oeste',
+        'Internacional' => 'Internacional',
+        'Nordeste' => 'Nordeste',
+        'Norte' => 'Norte',
+        'Sudeste' => 'Sudeste',
+        'Sul' => 'Sul'
+    ],
+    'en-GB' => [
+        'Brazil' => 'Brazil',
+        'Central-West' => 'Central-West',
+        'Northeast' => 'Northeast',
+        'North' => 'North',
+        'Southeast' => 'Southeast',
+        'South' => 'South'
+    ]
+];
+
+$idiomaAtual = $opcoes[$languageTag] ?? $opcoes['pt-BR'];
+
+
+?>
+
+<select name="regiao" id="regiao" class="form-select">
+   <option value=""><?php echo ($languageTag == 'pt-BR') ? 'Todos' : 'All'; ?></option>
+    <?php foreach ($idiomaAtual as $key => $label): ?>
+   
+        <?php if ($key === 'Internacional' && $languageTag == 'en') continue; // Remover Internacional quando for em inglês ?>
+        <option value="<?= htmlspecialchars($key); ?>" <?= $regiao == $key ? 'selected' : '' ?>>
+            <?php echo htmlspecialchars($label); ?>
+        </option>
+    <?php endforeach; ?>
+</select>
                                 </div>
                                 <!-- Filtro de categorias -->
                                 <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
                                     <p class="mb-1"><?php echo ($languageTag == 'pt-BR') ? 'Categorias' : 'Categories'; ?></p>
-                                    <select name="categoriaUnica" id="categoria" class="form-select" >
-                                        <option value=""><?php echo ($languageTag == 'pt-BR') ? 'Todos' : 'All'; ?></option>
-                                        <?php foreach ($categoriasUnicas as $catUnica): ?>
-                                            <option value="<?= htmlspecialchars($catUnica); ?>" <?= $categoriaUnica == $catUnica ? 'selected' : '' ?>>
-                                                <?= htmlspecialchars($catUnica); ?>
-                                            </option>
-                                        <?php endforeach; ?>
-                                    </select>
+                                    <?php
+$categoriasMap = [
+    'pt-BR' => [
+        'Bioeconomia' => 'Bioeconomia',
+        'Créditos de Carbono' => 'Créditos de Carbono',
+        'Educação para Sustentabilidade' => 'Educação para Sustentabilidade',
+        'Energias Renováveis' => 'Energias Renováveis',
+        'Finanças Verdes' => 'Finanças Verdes',
+        'Inclusão e diversidade' => 'Inclusão e diversidade',
+        'Produção Sustentável' => 'Produção Sustentável',
+        'Recursos Hídricos' => 'Recursos Hídricos',
+        'Resíduos Sólidos' => 'Resíduos Sólidos'
+    ],
+    'en-GB' => [
+        'Bioeconomy' => 'Bioeconomy',
+        'Carbon Credits' => 'Carbon Credits',
+        'Sustainability Education' => 'Sustainability Education',
+        'Renewable Energy' => 'Renewable Energy',
+        'Finanças Verdes' => 'Green Finance',
+        'Inclusion and Diversity' => 'Inclusion and Diversity',
+        'Sustainable Production' => 'Sustainable Production',
+        'Water Resources' => 'Water Resources',
+        'Solid Waste' => 'Solid Waste'
+    ]
+];
+
+$idiomaAtual = $categoriasMap[$languageTag] ?? $categoriasMap['pt-BR'];
+?>
+
+<select name="categoriaUnica" id="categoria" class="form-select">
+   <option value=""><?php echo ($languageTag == 'pt-BR') ? 'Todos' : 'All'; ?></option>
+    
+    <?php foreach ($idiomaAtual as $key => $label): ?>
+        <?php if ($key === 'Todos') continue; // Pula o item "Todos" já que está no option inicial ?>
+        <option value="<?= htmlspecialchars($key); ?>" <?= $categoriaUnica == $key ? 'selected' : '' ?>>
+            <?= htmlspecialchars($label); ?>
+        </option>
+    <?php endforeach; ?>
+</select>
+
                                 </div>
                                 <div class="col-lg-1 col-md-1 col-sm-1 col-xs-1">
                                     <button class="icon_search" onclick="this.form.submit()"></button>
@@ -172,17 +235,24 @@ $filteredArticles = array_filter($filteredArticles, function($article) use ($reg
                             </figure>
                             <div class="txt">
                                 <h3>
-                                    <a href="<?= $articleUrl; ?>" title="<?= htmlspecialchars($article->title); ?>">
-                                        <?= htmlspecialchars($article->title); ?>
-                                    </a>
-                                </h3>
-                                <?php 
-                                // Limita o texto de introdução a 150 caracteres, removendo tags HTML
-                                $introtext = strip_tags($article->introtext);
-                                $introtext = strlen($introtext) > 150 ? substr($introtext, 0, 150) . '...' : $introtext;
-                                ?>
-                                <p><?= htmlspecialchars($introtext); ?></p>
-                                <a href="<?= $articleUrl; ?>" class="btn btnaccess"><?php echo ($languageTag == 'pt-BR') ? 'Acessar' : 'Access'; ?></a>
+   <?php
+$title = strip_tags($article->title);
+$title = mb_strlen($title) > 40 ? mb_substr($title, 0, 40) . '...' : $title;
+?>
+<a href="<?= $articleUrl; ?>" title="<?= htmlspecialchars($article->title); ?>">
+    <?= htmlspecialchars($title); ?>
+</a>
+</h3>
+                               <?php 
+// Limita o texto de introdução a 80 caracteres, removendo tags HTML
+$introtext = strip_tags($article->introtext);
+$introtext = mb_strlen($introtext) > 80 ? mb_substr($introtext, 0, 80) . '...' : $introtext;
+?>
+<p><?= htmlspecialchars($introtext); ?></p>
+<a href="<?= $articleUrl; ?>" class="btn btnaccess">
+    <?= ($languageTag == 'pt-BR') ? 'Acessar' : 'Access'; ?>
+</a>
+
                             </div>
                         </div>
                     </div>

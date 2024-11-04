@@ -30,6 +30,7 @@
     border-radius: 10px;
 }
 .boxListCases h3 {
+  padding-top: 10px;
     font-family: "Intro SemiBold";
     text-align: left;
     margin: 0;
